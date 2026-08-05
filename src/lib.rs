@@ -1,0 +1,1 @@
+pub static SYNC_FOLDER_LOCATION: &str = "/home/ishank/bixsync";
