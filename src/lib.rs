@@ -1,14 +1,19 @@
-use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
+#![allow(nonstandard_style)]
+
+use std::{
+    net::{IpAddr, UdpSocket},
+    sync::LazyLock,
+};
 
 pub static SYNC_FOLDER_LOCATION: &str = "/home/ishank/bixsync";
 
 pub const PORT: u16 = 2637;
 pub const PEERS_FILE: &str = "peers.json";
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct Peer {
-    pub last_seen: u64,
-}
+pub static mut Peers: Vec<String> = Vec::new();
 
-pub type PeerMap = HashMap<String, Peer>;
+pub static SelfIpAddr: LazyLock<IpAddr> = LazyLock::new(|| {
+    let socket = UdpSocket::bind("0.0.0.0:0").unwrap();
+    socket.connect("8.8.8.8:80").unwrap();
+    socket.local_addr().unwrap().ip()
+});
