@@ -1,7 +1,7 @@
 #![allow(nonstandard_style)]
 
 use bixsync::*;
-use notify::{Event, RecursiveMode, Watcher};
+use notify::{Event, EventKind, RecursiveMode, Watcher, event::ModifyKind};
 use std::{fs, io, net::UdpSocket, path::Path, sync::mpsc, thread, time::Duration};
 
 // Loading peers
@@ -15,7 +15,7 @@ fn LoadPears() -> Vec<String> {
 
 // Saving peers
 fn SavePeers(peers: &[String]) {
-    if let Ok(json) = serde_json::to_string_pretty(&peers) {
+    if let Ok(json) = serde_json::to_string_pretty(peers) {
         let _ = fs::write(PEERS_FILE, json);
     }
 }
@@ -32,7 +32,17 @@ fn FolderWatcher() -> notify::Result<()> {
 
     for res in rx {
         match res {
-            Ok(event) => println!("File event: {:?}", event),
+            // Special case for modify event
+            Ok(event) => match event.kind {
+                EventKind::Create(_)
+                | EventKind::Modify(ModifyKind::Data(_))
+                | EventKind::Modify(ModifyKind::Name(_))
+                | EventKind::Remove(_) => {
+                    println!("Updated and ready for sync: {:?}", event.paths);
+                }
+
+                _ => {}
+            },
             Err(e) => println!("Watch error: {:?}", e),
         }
     }
