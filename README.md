@@ -43,6 +43,9 @@ It's a file sync system, that syncs a folder to all the devices connected to the
 ## TEAM : DEVSORA
 
 [By Augustus (HB Singh)](https://github.com/BYAUGUSTUS/)
+
 [BIGBEASTISHANK (Pranjal)](https://bigbeastishank.com/)
+
 [Ankit](https://github.com//)
+
 [Utkarsh](https://github.com//)
