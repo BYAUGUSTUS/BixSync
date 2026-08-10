@@ -38,3 +38,14 @@ It's a file sync system, that syncs a folder to all the devices connected to the
 2. In `lib.rs` file, change the `SYNC_FOLDER_LOCATION` to the path of the folder you want to sync.
 3. Run `cargo run` in the terminal.
 4. Now you can edit files in the sync folder and they will be synced to all the devices connected to the same network running bixsync.
+
+
+## TEAM : DEVSORA
+
+[By Augustus (HB Singh)](https://github.com/BYAUGUSTUS/)
+
+[BIGBEASTISHANK (Pranjal)](https://bigbeastishank.com/)
+
+[Ankit](https://github.com//)
+
+[Utkarsh](https://github.com//)
